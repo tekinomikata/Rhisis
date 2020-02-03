@@ -33,6 +33,20 @@ namespace Rhisis.World.Packets.Internal
             SendToPlayer(player, packet);
         }
 
+        public void SendChatText(IPlayerEntity player, int textId, params object[] parameters)
+        {
+            using var packet = new FFPacket();
+
+            packet.StartNewMergedPacket(player.Id, SnapshotType.CHATTEXT);
+            packet.Write(textId);
+            if (parameters.Length > 0)
+            {
+                packet.Write(string.Join(" ", parameters));
+            }
+
+            SendToPlayer(player, packet);
+        }
+
         /// <inheritdoc />
         public void SendSnoop(IPlayerEntity player, string text)
         {

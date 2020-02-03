@@ -50,7 +50,8 @@ namespace Rhisis.World.Game.Chat.Commands
 
             if (playerName.Equals(player.Object.Name, StringComparison.InvariantCultureIgnoreCase))
             {
-                _textPacketFactory.SendDefinedText(player, (DefineText)348);
+                _logger.LogTrace($"your self");
+                _textPacketFactory.SendChatText(player, 348);
                 return;
             }
 
@@ -58,9 +59,10 @@ namespace Rhisis.World.Game.Chat.Commands
             if (playerLookup == null)
             {
                 var characterExists = _database.Characters.HasAny(x => x.Name.IndexOf(playerName, StringComparison.InvariantCultureIgnoreCase) > -1);
-                _textPacketFactory.SendDefinedText(player, characterExists 
-                    ? (DefineText)1297 
-                    : (DefineText)349, playerName);
+                _logger.LogTrace($"Character exists = {characterExists}, character {playerName}");
+                _textPacketFactory.SendChatText(player, characterExists 
+                    ? 1297 
+                    : 349, playerName);
                 return;
             }
 
