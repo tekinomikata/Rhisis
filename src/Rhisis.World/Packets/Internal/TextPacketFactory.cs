@@ -38,7 +38,7 @@ namespace Rhisis.World.Packets.Internal
             using var packet = new FFPacket();
 
             packet.StartNewMergedPacket(player.Id, SnapshotType.CHATTEXT);
-            packet.Write(textId);
+            //packet.Write(textId);
             if (parameters.Length > 0)
             {
                 packet.Write(string.Join(" ", parameters));
