@@ -91,8 +91,9 @@ namespace Rhisis.Login.Client
                 _logger.LogTrace("Received {0} packet from {1}.", (PacketType)packetHeaderNumber, Socket.RemoteEndPoint);
                 _handlerInvoker.Invoke((PacketType)packetHeaderNumber, this, packet);
             }
-            catch (ArgumentException)
+            catch (ArgumentException argumentException)
             {
+                _logger.LogError(argumentException, $"An error occured");
                 if (Enum.IsDefined(typeof(PacketType), packetHeaderNumber))
                 {
                     _logger.LogWarning("Received an unimplemented Login packet {0} (0x{1}) from {2}.",
